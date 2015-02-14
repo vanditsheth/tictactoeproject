@@ -1,0 +1,22 @@
+<html>
+<body>
+
+<div align='center'>
+<br><br>
+{{message}}
+<br><br>
+
+<div align='center'>
+The final board is: <br>
+<br><br>
+<div>_{{moves[0]}}_|_{{moves[1]}}_|_{{moves[2]}}_</div>
+<div>_{{moves[3]}}_|_{{moves[4]}}_|_{{moves[5]}}_</div>
+<div> {{moves[6]}} |&nbsp {{moves[7]}} &nbsp| {{moves[8]}} </div>
+</div>
+
+<div align='center'>
+<form id="loginform" class="navbar-form navbar-right" role="form" action="/logout_do/" method="POST">
+<br><br><br>
+<button type="submit" id="logout" class="btn btn-success">Play Again</button>
+</div>
+</form>

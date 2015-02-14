@@ -1,0 +1,56 @@
+<html>
+<body>
+<br>
+
+<div align='center'>
+Hello, You are {{name}}
+</div>
+
+<br><br>
+
+<div align='center'>
+The board currently is: <br>
+<br><br>
+<div>_{{moves[0]}}_|_{{moves[1]}}_|_{{moves[2]}}_</div>
+<div>_{{moves[3]}}_|_{{moves[4]}}_|_{{moves[5]}}_</div>
+<div> {{moves[6]}} |&nbsp {{moves[7]}} &nbsp| {{moves[8]}} </div>
+</div>
+<br>
+<div align='center'>
+{% if turn==0 %}
+<p>It's your opponent's turn. Please wait for them to play. 
+<!--Listen to this till then.</p>
+<iframe width="300" height="300"
+src="http://www.youtube.com/embed/SRU1OiVwLes">
+</iframe>-->
+
+{% elif turn==1 %}
+<p>It's your turn!</p>
+<form id="playform" role="form" action="/playturn/" method="POST">
+Enter cell number to play (1-9):
+                <div class="form-group" align="center">
+		  <input type="text" maxlength="1" name="cellnumber" id="cellnumber" placeholder="Cell Number" class="form-control" size="8" autofocus>
+		<button type="submit" id="play" class="btn btn-success">Go!</button>
+</div>
+</form>
+
+{% endif %}
+
+
+</div>
+
+<div align='center'>
+<form id="loginform" class="navbar-form navbar-right" role="form" action="/refresh/" method="POST">
+<button type="submit" id="refresh" class="btn btn-success">Refresh</button>
+</form>
+</div>
+
+<div align='center'>
+<form id="loginform" class="navbar-form navbar-right" role="form" action="/logout_do/" method="POST">
+<br><br><br>
+<button type="submit" id="logout" class="btn btn-success">Logout</button>
+</div>
+</form>
+
+</body>
+</html>
