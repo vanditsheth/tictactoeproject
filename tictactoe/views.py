@@ -34,6 +34,7 @@ def checker(moves):
     else:
       return 0
 
+@csrf_exempt
 def index(request):
   return HttpResponse(jinja_environ.get_template('index.html').render())
 
@@ -52,6 +53,7 @@ def login_do(request):
     else:
       return HttpResponse("Invalid Login. Go Back.")
 
+@csrf_exempt
 def giveplayboardpage(request):
       tmp=player.objects.get(user=request.user.username)
       movesarray=moves.objects.get(name="test")
