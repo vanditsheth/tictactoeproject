@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^logout_do/', views.logout_do, name='logout_do'),
     url(r'^playturn/', views.playturn, name='playturn'),    
     url(r'^refresh/', views.refresh, name='refresh'),    
+    url(r'^giveplayboardpage/', views.giveplayboardpage, name='giveplayboardpage'),    
 )
