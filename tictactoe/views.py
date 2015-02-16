@@ -55,7 +55,7 @@ def login_do(request):
 
 @csrf_exempt
 def giveplayboardpage(request):
-      tmp=player.objects.get(user=request.user.username)
+      tmp=player.objects.get(name=request.user.username)
       movesarray=moves.objects.get(name="test")
       return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves}))
 
