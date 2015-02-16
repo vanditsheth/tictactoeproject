@@ -12,5 +12,7 @@ class player(models.Model):
 class moves(models.Model):
   name = models.CharField(max_length=10)
   moves = models.CharField(max_length=9)
+  player1 = models.IntegerField(default=0)#0=Nothing, 1=cross won, 2=zero won, 3=tie, 4=Waiting to play again
+  player2 = models.IntegerField(default=0)#0=Nothing, 1=cross won, 2=zero won, 3=tie, 4=Waiting to play again
   def __unicode__(self):
     return self.name

@@ -3,19 +3,20 @@
 <br>
 
 <div align='center'>
-Hello, You are {{name}}
+Hello, You are <b>{{name}}</b>
 </div>
 
 <br><br>
 
 <div align='center'>
-The board currently is: <br>
+The board is: <br>
 <br><br>
 <div>_{{moves[0]}}_|_{{moves[1]}}_|_{{moves[2]}}_</div>
 <div>_{{moves[3]}}_|_{{moves[4]}}_|_{{moves[5]}}_</div>
 <div> {{moves[6]}} |&nbsp {{moves[7]}} &nbsp| {{moves[8]}} </div>
 </div>
 <br>
+
 <div align='center'>
 {% if turn==0 %}
 <p>It's your opponent's turn. Please wait for them to play. 
@@ -35,8 +36,6 @@ Enter cell number to play (1-9):
 </form>
 
 {% endif %}
-
-
 </div>
 
 <div align='center'>
