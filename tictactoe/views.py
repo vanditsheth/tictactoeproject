@@ -52,6 +52,10 @@ def login_do(request):
     else:
       return HttpResponse("Invalid Login. Go Back.")
 
+def giveplayboardpage(request):
+      tmp=player.objects.get(user=request.user.username)
+      movesarray=moves.objects.get(name="test")
+      return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves}))
 
 @csrf_exempt
 def logout_do(request):
