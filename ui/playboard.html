@@ -1,5 +1,32 @@
 <html>
 <body>
+
+<script>
+var limit="0:20"
+if (document.images){
+var parselimit=limit.split(":")
+parselimit=parselimit[0]*60+parselimit[1]*1
+}
+function beginrefresh(){
+if (!document.images)
+return
+if (parselimit==1)
+window.location.href='/refresh/'
+else{ 
+parselimit-=1
+curmin=Math.floor(parselimit/60)
+cursec=parselimit%60
+if (curmin!=0)
+curtime=curmin+" minutes and "+cursec+" seconds left until page refresh!"
+else
+curtime=cursec+" seconds left until page refresh!"
+window.status=curtime
+setTimeout("beginrefresh()",1000)
+}
+}
+window.onload=beginrefresh
+</script>
+
 <br>
 
 <div align='center'>
@@ -40,6 +67,7 @@ Enter cell number to play (1-9):
 
 <div align='center'>
 <form id="loginform" class="navbar-form navbar-right" role="form" action="/refresh/" method="POST">
+<font size='2'>This page auto-refreshes every 20 seconds but you can go ahead and press refresh if you are desperate.</font><br>
 <button type="submit" id="refresh" class="btn btn-success">Refresh</button>
 </form>
 </div>
