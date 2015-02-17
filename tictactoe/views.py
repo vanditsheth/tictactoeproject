@@ -46,7 +46,39 @@ def login_do(request):
     if userthis is not None:
         if userthis.is_active:
             login(request, userthis)
-            refresh(request)
+	    tmp=player.objects.get(name=username)
+	    movesarray=moves.objects.get(name="test")
+	    p1=movesarray.player1
+	    p2=movesarray.player2
+
+	    if p1==p2==4:
+	      p1==0
+	      p2==0
+	      movesarray.save()
+
+	    if p1==0 and p2==0:
+	      return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves}))
+
+	    elif tmp.name=='cross':
+	      if p1==1:
+		return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Winner is x', "moves":movesarray.moves}))
+	      elif p1==2:
+		return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Winner is o', "moves":movesarray.moves}))
+	      elif p1==3:
+		return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Game has been tied', "moves":movesarray.moves}))
+	      elif p1==4:
+		return HttpResponse(jinja_environ.get_template('waitplayer.html').render({"message":'Please wait for other player to press play again', "moves":movesarray.moves}))
+
+	    elif tmp.name=='zero':
+	      if p2==1:
+		return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Winner is x', "moves":movesarray.moves}))
+	      elif p2==2:
+		return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Winner is o', "moves":movesarray.moves}))
+	      elif p2==3:
+		return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Game has been tied', "moves":movesarray.moves}))
+	      elif p2==4:
+		return HttpResponse(jinja_environ.get_template('waitplayer.html').render({"message":'Please wait for other player to press play again', "moves":movesarray.moves}))
+	      
     else:
       return HttpResponse("Invalid Login. Go Back.")
 
