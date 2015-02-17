@@ -46,10 +46,7 @@ def login_do(request):
     if userthis is not None:
         if userthis.is_active:
             login(request, userthis)
-            tmp=player.objects.get(user=userthis)
-            movesarray=moves.objects.get(name="test")
-	    return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves, "p1":movesarray.player1, "p2":movesarray.player2}))
-
+            refresh(request)
     else:
       return HttpResponse("Invalid Login. Go Back.")
 
