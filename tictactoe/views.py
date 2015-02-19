@@ -54,7 +54,11 @@ def login_do(request):
 	    p1=movesarray.player1
 	    p2=movesarray.player2
 	    
+	    tmpmessagearr=messages.objects.filter()
 	    messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
+	    diffarr=[aa for aa in tmpmessagearr if aa not in messagearr]
+	    for i in diffarr:
+	      i.delete()
 
 	    if p1==p2==4:
 	      p1==0
@@ -91,7 +95,13 @@ def login_do(request):
 def giveplayboardpage(request):
       tmp=player.objects.get(name=request.user.username)
       movesarray=moves.objects.get(name="test")
+      
+      tmpmessagearr=messages.objects.filter()
       messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
+      diffarr=[aa for aa in tmpmessagearr if aa not in messagearr]
+      for i in diffarr:
+	i.delete()
+
 
       if tmp.name=='cross':
 	movesarray.player1=4
@@ -126,7 +136,12 @@ def refresh(request):
     p1=movesarray.player1
     p2=movesarray.player2
     
+    tmpmessagearr=messages.objects.filter()
     messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
+    diffarr=[aa for aa in tmpmessagearr if aa not in messagearr]
+    for i in diffarr:
+      i.delete()
+
 
     if p1==p2==4:
       p1==0
@@ -162,7 +177,12 @@ def playturn(request):
     cellnumber = request.REQUEST['cellnumber']
     movesarray=moves.objects.get(name="test")
     
+    tmpmessagearr=messages.objects.filter()
     messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
+    diffarr=[aa for aa in tmpmessagearr if aa not in messagearr]
+    for i in diffarr:
+      i.delete()
+
     
     if cellnumber not in ['1','2','3','4','5','6','7','8','9']:
       return HttpResponse("Invalid Number. Go Back and enter again")
@@ -250,7 +270,12 @@ def sendmessage(request):
     p1=movesarray.player1
     p2=movesarray.player2
     
+    tmpmessagearr=messages.objects.filter()
     messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
+    diffarr=[aa for aa in tmpmessagearr if aa not in messagearr]
+    for i in diffarr:
+      i.delete()
+
 
     if p1==p2==4:
       p1==0
