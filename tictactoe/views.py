@@ -53,6 +53,8 @@ def login_do(request):
 	    movesarray=moves.objects.get(name="test")
 	    p1=movesarray.player1
 	    p2=movesarray.player2
+	    
+	    messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
 
 	    if p1==p2==4:
 	      p1==0
@@ -60,7 +62,7 @@ def login_do(request):
 	      movesarray.save()
 
 	    if p1==0 and p2==0:
-	      return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves}))
+	      return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves, "messagearr":messagearr}))
 
 	    elif tmp.name=='cross':
 	      if p1==1:
@@ -89,6 +91,8 @@ def login_do(request):
 def giveplayboardpage(request):
       tmp=player.objects.get(name=request.user.username)
       movesarray=moves.objects.get(name="test")
+      messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
+
       if tmp.name=='cross':
 	movesarray.player1=4
 	movesarray.save()
@@ -101,7 +105,7 @@ def giveplayboardpage(request):
 	movesarray.player2=0
 	movesarray.moves='.........'
 	movesarray.save()
-	return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves}))
+	return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves, "messagearr":messagearr}))
 
       elif tmp.name=='cross' and movesarray.player2!=4:
 	return HttpResponse(jinja_environ.get_template('waitplayer.html').render({"message":'Please wait for other player to press play again', "moves":movesarray.moves}))
@@ -121,6 +125,8 @@ def refresh(request):
     movesarray=moves.objects.get(name="test")
     p1=movesarray.player1
     p2=movesarray.player2
+    
+    messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
 
     if p1==p2==4:
       p1==0
@@ -128,7 +134,7 @@ def refresh(request):
       movesarray.save()
 
     if p1==0 and p2==0:
-      return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves}))
+      return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves, "messagearr":messagearr}))
 
     elif tmp.name=='cross':
       if p1==1:
@@ -155,6 +161,8 @@ def playturn(request):
     playert=request.user.username
     cellnumber = request.REQUEST['cellnumber']
     movesarray=moves.objects.get(name="test")
+    
+    messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
     
     if cellnumber not in ['1','2','3','4','5','6','7','8','9']:
       return HttpResponse("Invalid Number. Go Back and enter again")
@@ -207,7 +215,7 @@ def playturn(request):
     checkervar=checker(movesarray.moves)
     
     if checkervar==0:
-      return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves, "p1":movesarray.player1, "p2":movesarray.player2}))
+      return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves, "p1":movesarray.player1, "p2":movesarray.player2, "messagearr":messagearr}))
     
     elif 'Winner' in checkervar:
       if 'x' in checkervar:
@@ -225,3 +233,51 @@ def playturn(request):
       movesarray.player2=3
       movesarray.save()
       return HttpResponse(jinja_environ.get_template('end.html').render({"message":checkervar, "moves":movesarray.moves}))
+
+def displaymessages(request):
+   
+   return HttpResponse(jinja_environ.get_template('testfile.html').render({"messagearr":messagearr}))
+
+@csrf_exempt
+def sendmessage(request):
+    name=request.user.username
+    text = request.REQUEST['text']
+    newmessage = messages(sender=name, message=text)
+    newmessage.save()
+
+    tmp=player.objects.get(name=name)
+    movesarray=moves.objects.get(name="test")
+    p1=movesarray.player1
+    p2=movesarray.player2
+    
+    messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
+
+    if p1==p2==4:
+      p1==0
+      p2==0
+      movesarray.save()
+
+    if p1==0 and p2==0:
+      return HttpResponse(jinja_environ.get_template('playboard.html').render({"turn":tmp.turn, "name":tmp.user.username, "moves":movesarray.moves, "messagearr":messagearr}))
+
+    elif tmp.name=='cross':
+      if p1==1:
+	return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Winner is x', "moves":movesarray.moves}))
+      elif p1==2:
+      	return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Winner is o', "moves":movesarray.moves}))
+      elif p1==3:
+	return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Game has been tied', "moves":movesarray.moves}))
+      elif p1==4:
+	return HttpResponse(jinja_environ.get_template('waitplayer.html').render({"message":'Please wait for other player to press play again', "moves":movesarray.moves}))
+
+    elif tmp.name=='zero':
+      if p2==1:
+	return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Winner is x', "moves":movesarray.moves}))
+      elif p2==2:
+      	return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Winner is o', "moves":movesarray.moves}))
+      elif p2==3:
+	return HttpResponse(jinja_environ.get_template('end.html').render({"message":'Game has been tied', "moves":movesarray.moves}))
+      elif p2==4:
+	return HttpResponse(jinja_environ.get_template('waitplayer.html').render({"message":'Please wait for other player to press play again', "moves":movesarray.moves}))
+
+    

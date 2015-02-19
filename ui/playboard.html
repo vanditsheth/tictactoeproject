@@ -73,6 +73,25 @@ Enter cell number to play (1-9):
 </div>
 
 <div align='center'>
+<u>Messages:<br></u>
+{% for i in messagearr %}
+<b>{{i.sender}}:</b>
+{{i.message}}
+<br>
+{% endfor %}
+<br>
+</div>
+
+<div align='center'>
+<form id="messageform" role="form" action="/sendmessage/" method="POST">
+<div class="form-group" align="center">
+<input id="text" style="width: 20%; height: 5%" name='text' rows="1" cols="80" placeholder='Type Message to Send' maxlength='100'>
+<button type="submit" id="send" class="btn btn-success">Send!</button>
+</div>
+</form>
+
+
+<div align='center'>
 <form id="loginform" class="navbar-form navbar-right" role="form" action="/logout_do/" method="POST">
 <br><br><br>
 <button type="submit" id="logout" class="btn btn-success">Logout</button>

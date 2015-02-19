@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^playturn/', views.playturn, name='playturn'),    
     url(r'^refresh/', views.refresh, name='refresh'),    
     url(r'^giveplayboardpage/', views.giveplayboardpage, name='giveplayboardpage'),    
+    url(r'^sendmessage/',views.sendmessage, name='sendmessage'),
 )

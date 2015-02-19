@@ -16,3 +16,9 @@ class moves(models.Model):
   player2 = models.IntegerField(default=0)#0=Nothing, 1=cross won, 2=zero won, 3=tie, 4=Waiting to play again
   def __unicode__(self):
     return self.name
+  
+class messages(models.Model):
+  sender = models.CharField(max_length=10)
+  message = models.CharField(max_length=500)
+  def __unicode__(self):
+    return self.sender
