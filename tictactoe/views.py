@@ -54,7 +54,7 @@ def login_do(request):
 	    p1=movesarray.player1
 	    p2=movesarray.player2
 	    
-	    messages.objects.all().dele
+	    messages.objects.all().delete()
 	    messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
 
 	    if p1==p2==4:
