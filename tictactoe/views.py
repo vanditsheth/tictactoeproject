@@ -54,8 +54,11 @@ def login_do(request):
 	    p1=movesarray.player1
 	    p2=movesarray.player2
 	    
-	    messages.objects.all().delete()
+	    tmpmessagearr=messages.objects.filter()
 	    messagearr=messages.objects.filter().order_by('-id')[:12][::-1]
+	    diffarr=[aa for aa in tmpmessagearr if aa not in messagearr]
+	    for i in diffarr:
+	      i.delete()
 
 	    if p1==p2==4:
 	      p1==0
