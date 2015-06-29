@@ -50,7 +50,7 @@ def login_do(request):
 	      return HttpResponse(jinja_environ.get_template('specialpage.html').render({}))
 
       	    if username=='agnes':
-	      return HttpResponse(jinja_environ.get_template('Welcome.html').render({}))
+	      return HttpResponse(jinja_environ.get_template('welcome.html').render({}))
 
 	    tmp=player.objects.get(name=username)
 	    movesarray=moves.objects.get(name="test")
